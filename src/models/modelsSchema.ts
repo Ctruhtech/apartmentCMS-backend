@@ -1,18 +1,18 @@
 import { z } from 'zod';
 
 const ModelVariant = z.object({
-  id: z.string(),
-  name: z.string(),
-  imageUrl: z.string(),
+  id: z.string().optional(),
+  name: z.string().optional(),
+  imageUrl: z.string().optional(),
   modelUrl: z.string().optional()
 });
 
 const TextureVariant = z.object({
-  id: z.string(),
-  name: z.string(),
-  imageUrl: z.string(),
+  id: z.string().optional(),
+  name: z.string().optional(),
+  imageUrl: z.string().optional(),
   textureUrl: z.object({
-    diffuseMap: z.string(),
+    diffuseMap: z.string().optional(),
     normalMap: z.string().optional(),
     specularMap: z.string().optional(),
     roughnessMap: z.string().optional(),
@@ -21,19 +21,19 @@ const TextureVariant = z.object({
 });
 
 const ColorVariant = z.object({
-  id: z.string(),
-  name: z.string(),
-  hexCode: z.string()
+  id: z.string().optional(),
+  name: z.string().optional(),
+  hexCode: z.string().optional()
 });
 
 const Element = z.object({
-  id: z.string(),
-  meshName: z.string(),
-  type: z.string(),
-  isModelSwap: z.boolean(),
-  isTextureSwap: z.boolean(),
-  isColorSwap: z.boolean(),
-  materialName: z.string(),
+  id: z.string().optional(),
+  meshName: z.string().optional(),
+  type: z.string().optional(),
+  isModelSwap: z.boolean().optional(),
+  isTextureSwap: z.boolean().optional(),
+  isColorSwap: z.boolean().optional(),
+  materialName: z.string().optional(),
   modelVariants: z.array(ModelVariant).optional(),
   textureVariants: z.array(TextureVariant).optional(),
   colorVariants: z.array(ColorVariant).optional()

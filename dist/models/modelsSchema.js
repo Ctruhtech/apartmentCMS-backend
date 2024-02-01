@@ -3,17 +3,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Element = void 0;
 const zod_1 = require("zod");
 const ModelVariant = zod_1.z.object({
-    id: zod_1.z.string(),
-    name: zod_1.z.string(),
-    imageUrl: zod_1.z.string(),
+    id: zod_1.z.string().optional(),
+    name: zod_1.z.string().optional(),
+    imageUrl: zod_1.z.string().optional(),
     modelUrl: zod_1.z.string().optional()
 });
 const TextureVariant = zod_1.z.object({
-    id: zod_1.z.string(),
-    name: zod_1.z.string(),
-    imageUrl: zod_1.z.string(),
+    id: zod_1.z.string().optional(),
+    name: zod_1.z.string().optional(),
+    imageUrl: zod_1.z.string().optional(),
     textureUrl: zod_1.z.object({
-        diffuseMap: zod_1.z.string(),
+        diffuseMap: zod_1.z.string().optional(),
         normalMap: zod_1.z.string().optional(),
         specularMap: zod_1.z.string().optional(),
         roughnessMap: zod_1.z.string().optional(),
@@ -21,18 +21,18 @@ const TextureVariant = zod_1.z.object({
     }),
 });
 const ColorVariant = zod_1.z.object({
-    id: zod_1.z.string(),
-    name: zod_1.z.string(),
-    hexCode: zod_1.z.string()
+    id: zod_1.z.string().optional(),
+    name: zod_1.z.string().optional(),
+    hexCode: zod_1.z.string().optional()
 });
 const Element = zod_1.z.object({
-    id: zod_1.z.string(),
-    meshName: zod_1.z.string(),
-    type: zod_1.z.string(),
-    isModelSwap: zod_1.z.boolean(),
-    isTextureSwap: zod_1.z.boolean(),
-    isColorSwap: zod_1.z.boolean(),
-    materialName: zod_1.z.string(),
+    id: zod_1.z.string().optional(),
+    meshName: zod_1.z.string().optional(),
+    type: zod_1.z.string().optional(),
+    isModelSwap: zod_1.z.boolean().optional(),
+    isTextureSwap: zod_1.z.boolean().optional(),
+    isColorSwap: zod_1.z.boolean().optional(),
+    materialName: zod_1.z.string().optional(),
     modelVariants: zod_1.z.array(ModelVariant).optional(),
     textureVariants: zod_1.z.array(TextureVariant).optional(),
     colorVariants: zod_1.z.array(ColorVariant).optional()

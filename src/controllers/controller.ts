@@ -300,6 +300,40 @@ apartmentRouter.delete("/models/:id", async(req: Request, res: Response) => {
     }
 });
 
+// specific deletion of model variant
+apartmentRouter.delete("/models/:id/model/:modelId", async (req: Request, res: Response) => {
+    try {
+      const entryId = req.params.id;
+      const modelId = req.params.modelId;
+  
+      // Check if an entry with the same id already exists
+      const existingEntry = await findEntryById(entryId);
+  
+      if (!existingEntry) {
+        return res.status(404).send("Entry not found in the database");
+      }
+  
+      // Find the index of the ModelVariant to delete
+      const modelIndex = existingEntry.modelVariants.findIndex((model) => model.id === modelId);
+  
+      if (modelIndex === -1) {
+        return res.status(404).send("ModelVariant not found in the Element");
+      }
+  
+      // Remove the ModelVariant from the Element
+      existingEntry.modelVariants.splice(modelIndex, 1);
+  
+      // Update the Element in the database
+      const updatedEntry = await updateEntry(entryId, existingEntry);
+  
+      return res.status(200).json(updatedEntry);
+    } catch (err) {
+      console.error(err);
+      return res.status(500).send("Internal server error");
+    }
+  });
+  
+
 
 
 

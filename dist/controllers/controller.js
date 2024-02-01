@@ -290,6 +290,32 @@ apartmentRouter.delete("/models/:id/model/:modelId", (req, res) => __awaiter(voi
         return res.status(500).send("Internal server error");
     }
 }));
+// specific deletion of texture variant
+apartmentRouter.delete("/models/:id/texture/:textureId", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const entryId = req.params.id;
+        const textureId = req.params.textureId;
+        // Check if an entry with the same id already exists
+        const existingEntry = yield findEntryById(entryId);
+        if (!existingEntry) {
+            return res.status(404).send("Entry not found in the database");
+        }
+        // Find the index of the TextureVariant to delete
+        const textureIndex = existingEntry.textureVariants.findIndex((texture) => texture.id === textureId);
+        if (textureIndex === -1) {
+            return res.status(404).send("TextureVariant not found in the Element");
+        }
+        // Remove the TextureVariant from the Element
+        existingEntry.textureVariants.splice(textureIndex, 1);
+        // Update the Element in the database
+        const updatedEntry = yield updateEntry(entryId, existingEntry);
+        return res.status(200).json(updatedEntry);
+    }
+    catch (err) {
+        console.error(err);
+        return res.status(500).send("Internal server error");
+    }
+}));
 // Function to delete an existing entry from Cosmos DB
 function deleteEntry(id) {
     return __awaiter(this, void 0, void 0, function* () {

@@ -337,6 +337,32 @@ apartmentRouter.delete("/models/:id/texture/:textureId", (req, res) => __awaiter
         return res.status(500).send("Internal server error");
     }
 }));
+// specific deletion of color variant
+apartmentRouter.delete("/models/:id/color/:colorId", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const entryId = req.params.id;
+        const colorId = req.params.colorId;
+        // Check if an entry with the same id already exists
+        const existingEntry = yield findEntryById(entryId);
+        if (!existingEntry) {
+            return res.status(404).send("Entry not found in the database");
+        }
+        // Find the index of the ColorVariant to delete
+        const colorIndex = existingEntry.colorVariants.findIndex((color) => color.id === colorId);
+        if (colorIndex === -1) {
+            return res.status(404).send("ColorVariant not found in the Element");
+        }
+        // Remove the ColorVariant from the Element
+        existingEntry.colorVariants.splice(colorIndex, 1);
+        // Update the Element in the database
+        const updatedEntry = yield updateEntry(entryId, existingEntry);
+        return res.status(200).json(updatedEntry);
+    }
+    catch (err) {
+        console.error(err);
+        return res.status(500).send("Internal server error");
+    }
+}));
 // Function to delete an existing entry from Cosmos DB
 function deleteEntry(id) {
     return __awaiter(this, void 0, void 0, function* () {

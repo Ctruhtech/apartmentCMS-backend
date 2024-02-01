@@ -69,8 +69,9 @@ apartmentRouter.get("/models/:id", async(req: Request, res: Response) => {
 apartmentRouter.post("/models", async(req: Request, res: Response) => {
     try {
         const validatedEntry = Element.parse(req.body);
+        const generatedId = uuid();
 
-        const document = await createEntry(req.body);
+        const document = await createEntry({id: generatedId, ...req.body});
 
         return res.status(200).send(document);
     }

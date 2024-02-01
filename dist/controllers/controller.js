@@ -18,6 +18,7 @@ const multer_1 = __importDefault(require("multer"));
 const modelsSchema_1 = require("../models/modelsSchema");
 const axios_1 = __importDefault(require("axios"));
 const identity_1 = require("@azure/identity");
+const uuid_1 = require("uuid");
 const { Readable } = require('stream');
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
@@ -56,7 +57,8 @@ apartmentRouter.get("/models/:id", (req, res) => __awaiter(void 0, void 0, void 
 apartmentRouter.post("/models", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const validatedEntry = modelsSchema_1.Element.parse(req.body);
-        const document = yield createEntry(req.body);
+        const generatedId = (0, uuid_1.v4)();
+        const document = yield createEntry(Object.assign({ id: generatedId }, req.body));
         return res.status(200).send(document);
     }
     catch (err) {

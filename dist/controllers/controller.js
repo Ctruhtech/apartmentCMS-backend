@@ -183,6 +183,33 @@ apartmentRouter.put("/models/:id/texture/:textureId", (req, res) => __awaiter(vo
         return res.status(500).send("Internal server error");
     }
 }));
+// Update a specific ColorVariant within an Element
+apartmentRouter.put("/models/:id/color/:colorId", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const entryId = req.params.id;
+        const colorId = req.params.colorId;
+        const updatedColor = req.body;
+        // Check if an entry with the same id already exists
+        const existingEntry = yield findEntryById(entryId);
+        if (!existingEntry) {
+            return res.status(404).send("Entry not found in the database");
+        }
+        // Find the index of the colorVariant to update
+        const colorIndex = existingEntry.colorVariants.findIndex((color) => color.id === colorId);
+        if (colorIndex === -1) {
+            return res.status(404).send("ColorVariant not found in the Element");
+        }
+        // Update the specific ColorVariant in the Element
+        existingEntry.colorVariants[colorIndex] = updatedColor;
+        // Update the Element in the database
+        const updatedEntry = yield updateEntry(entryId, existingEntry);
+        return res.status(200).json(updatedEntry);
+    }
+    catch (err) {
+        console.error(err);
+        return res.status(500).send("Internal server error");
+    }
+}));
 apartmentRouter.delete("/models/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const document = yield deleteEntry(req.params.id);

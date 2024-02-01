@@ -154,6 +154,31 @@ apartmentRouter.post("/models/:id/model", async (req: Request, res: Response) =>
     }
 });
 
+// specific addition of texture variant
+apartmentRouter.post("/models/:id/texture", async (req: Request, res: Response) => {
+    try {
+      const entryId = req.params.id;
+      const newTexture = req.body;
+  
+      // Check if an entry with the same id already exists
+      const existingEntry = await findEntryById(entryId);
+  
+      if (!existingEntry) {
+        return res.status(404).send("Entry not found in the database");
+      }
+  
+      // Add the new TextureVariant to the Element
+      existingEntry.textureVariants.push(newTexture);
+  
+      // Update the Element in the database
+      const updatedEntry = await updateEntry(entryId, existingEntry);
+  
+      return res.status(200).json(updatedEntry);
+    } catch (err) {
+      console.error(err);
+      return res.status(500).send("Internal server error");
+    }
+});  
 
   
 // update whole structure 

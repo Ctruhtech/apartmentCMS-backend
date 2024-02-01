@@ -28,6 +28,15 @@ const upload = (0, multer_1.default)();
 apartmentRouter.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.send("Apartment backend service is up and running!");
 }));
+apartmentRouter.post('/login', (req, res) => {
+    const { username, password } = req.body;
+    const hardcodedPassword = process.env.CMS_PASSWORD;
+    const hardcodedUsername = process.env.CMS_USERNAME;
+    if (username === hardcodedUsername && password === hardcodedPassword) {
+        return res.status(200).send('Authentication successful');
+    }
+    return res.status(401).send('Authentication failed');
+});
 apartmentRouter.get("/models", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const document = yield findAllEntries();

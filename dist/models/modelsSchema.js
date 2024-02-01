@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Element = void 0;
+exports.ColorVariant = exports.TextureVariant = exports.ModelVariant = exports.Element = void 0;
 const zod_1 = require("zod");
 const ModelVariant = zod_1.z.object({
     id: zod_1.z.string().optional(),
@@ -8,6 +8,7 @@ const ModelVariant = zod_1.z.object({
     imageUrl: zod_1.z.string().optional(),
     modelUrl: zod_1.z.string().optional()
 });
+exports.ModelVariant = ModelVariant;
 const TextureVariant = zod_1.z.object({
     id: zod_1.z.string().optional(),
     name: zod_1.z.string().optional(),
@@ -20,11 +21,13 @@ const TextureVariant = zod_1.z.object({
         metalnessMap: zod_1.z.string().optional()
     }),
 });
+exports.TextureVariant = TextureVariant;
 const ColorVariant = zod_1.z.object({
     id: zod_1.z.string().optional(),
     name: zod_1.z.string().optional(),
     hexCode: zod_1.z.string().optional()
 });
+exports.ColorVariant = ColorVariant;
 const Element = zod_1.z.object({
     id: zod_1.z.string().optional(),
     meshName: zod_1.z.string().optional(),

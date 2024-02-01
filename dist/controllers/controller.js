@@ -116,8 +116,19 @@ apartmentRouter.post("/models/:id/model", (req, res) => __awaiter(void 0, void 0
         if (!existingEntry) {
             return res.status(404).send("Entry not found in the database");
         }
+        // Validate the new ModelVariant using Zod schema
+        const validatedModel = modelsSchema_1.ModelVariant.safeParse(newModel);
+        if (!validatedModel.success) {
+            return res.status(400).send("Invalid ModelVariant data");
+        }
+        const newModelVariant = {
+            id: validatedModel.data.id,
+            name: validatedModel.data.name,
+            imageUrl: validatedModel.data.imageUrl,
+            modelUrl: validatedModel.data.modelUrl,
+        };
         // Add the new ModelVariant to the Element
-        existingEntry.modelVariants.push(newModel);
+        existingEntry.modelVariants.push(newModelVariant);
         // Update the Element in the database
         const updatedEntry = yield updateEntry(entryId, existingEntry);
         return res.status(200).json(updatedEntry);
@@ -137,8 +148,19 @@ apartmentRouter.post("/models/:id/texture", (req, res) => __awaiter(void 0, void
         if (!existingEntry) {
             return res.status(404).send("Entry not found in the database");
         }
+        // Validate the new TextureVariant using Zod schema
+        const validatedTexture = modelsSchema_1.TextureVariant.safeParse(newTexture);
+        if (!validatedTexture.success) {
+            return res.status(400).send("Invalid TextureVariant data");
+        }
+        const newTextureVariant = {
+            id: validatedTexture.data.id,
+            name: validatedTexture.data.name,
+            imageUrl: validatedTexture.data.imageUrl,
+            textureUrl: validatedTexture.data.textureUrl,
+        };
         // Add the new TextureVariant to the Element
-        existingEntry.textureVariants.push(newTexture);
+        existingEntry.textureVariants.push(newTextureVariant);
         // Update the Element in the database
         const updatedEntry = yield updateEntry(entryId, existingEntry);
         return res.status(200).json(updatedEntry);
@@ -158,8 +180,18 @@ apartmentRouter.post("/models/:id/color", (req, res) => __awaiter(void 0, void 0
         if (!existingEntry) {
             return res.status(404).send("Entry not found in the database");
         }
+        // Validate the new ColorVariant using Zod schema
+        const validatedColor = modelsSchema_1.ColorVariant.safeParse(newColor);
+        if (!validatedColor.success) {
+            return res.status(400).send("Invalid ColorVariant data");
+        }
+        const newColorVariant = {
+            id: validatedColor.data.id,
+            name: validatedColor.data.name,
+            hexCode: validatedColor.data.hexCode,
+        };
         // Add the new ColorVariant to the Element
-        existingEntry.colorVariants.push(newColor);
+        existingEntry.colorVariants.push(newColorVariant);
         // Update the Element in the database
         const updatedEntry = yield updateEntry(entryId, existingEntry);
         return res.status(200).json(updatedEntry);

@@ -39,5 +39,4 @@ const Element = z.object({
   colorVariants: z.array(ColorVariant).optional()
 });
 
-export { Element };
-
+export { Element, ModelVariant, TextureVariant, ColorVariant };

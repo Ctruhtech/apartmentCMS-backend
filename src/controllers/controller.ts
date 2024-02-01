@@ -38,11 +38,26 @@ apartmentRouter.get("/models", async(req: Request, res: Response) => {
     try {
         const document = await findAllEntries();
 
-	    if (!document){
-		    return res.status(404).send("Entry not found in the database");
-	    }
+	    if (!Array.isArray(document) || document.length === 0) {
+            return res.status(404).send("No entries found in the database");
+        }
 
-        return res.status(200).send(document);
+        const filteredResponse = document.map((item) => {
+            return {
+              id: item.id,
+              meshName: item.meshName,
+              type: item.type,
+              isModelSwap: item.isModelSwap,
+              isTextureSwap: item.isTextureSwap,
+              isColorSwap: item.isColorSwap,
+              materialName: item.materialName,
+              modelVariants: item.modelVariants,
+              textureVariants: item.textureVariants,
+              colorVariants: item.colorVariants,
+            };
+          });
+
+        return res.status(200).send(filteredResponse);
     }
     catch(err) {
         console.log(err);
@@ -58,7 +73,20 @@ apartmentRouter.get("/models/:id", async(req: Request, res: Response) => {
             return res.status(404).send("Entry not found in the database");
         }
 
-        return res.status(200).send(document);
+        const filteredResponse = {
+            id: document.id,
+            meshName: document.meshName,
+            type: document.type,
+            isModelSwap: document.isModelSwap,
+            isTextureSwap: document.isTextureSwap,
+            isColorSwap: document.isColorSwap,
+            materialName: document.materialName,
+            modelVariants: document.modelVariants,
+            textureVariants: document.textureVariants,
+            colorVariants: document.colorVariants,
+        };
+
+        return res.status(200).send(filteredResponse);
     }
     catch(err) {
         console.log(err);
@@ -71,9 +99,27 @@ apartmentRouter.post("/models", async(req: Request, res: Response) => {
         const validatedEntry = Element.parse(req.body);
         const generatedId = uuid();
 
-        const document = await createEntry({id: generatedId, ...req.body});
+        const document = {
+            id: generatedId,
+            ...req.body
+        };
 
-        return res.status(200).send(document);
+        await createEntry(document);
+
+        const filteredResponse = {
+            id: document.id,
+            meshName: document.meshName,
+            type: document.type,
+            isModelSwap: document.isModelSwap,
+            isTextureSwap: document.isTextureSwap,
+            isColorSwap: document.isColorSwap,
+            materialName: document.materialName,
+            modelVariants: document.modelVariants,
+            textureVariants: document.textureVariants,
+            colorVariants: document.colorVariants,
+          };
+
+        return res.status(200).send(filteredResponse);
     }
     catch(err) {
         console.log(err);
@@ -85,9 +131,24 @@ apartmentRouter.put("/models/:id", async(req: Request, res: Response) => {
     try {
         const validatedEntry = Element.parse(req.body);
 
-        const document = await updateEntry(req.params.id, req.body);
+        const document = req.body;
 
-        return res.status(200).send(document);
+        await updateEntry(req.params.id, req.body);
+
+        const filteredResponse = {
+            id: document.id,
+            meshName: document.meshName,
+            type: document.type,
+            isModelSwap: document.isModelSwap,
+            isTextureSwap: document.isTextureSwap,
+            isColorSwap: document.isColorSwap,
+            materialName: document.materialName,
+            modelVariants: document.modelVariants,
+            textureVariants: document.textureVariants,
+            colorVariants: document.colorVariants,
+          };
+
+        return res.status(200).send(filteredResponse);
     }
     catch(err) {
         console.log(err);
@@ -180,9 +241,9 @@ async function findAllEntries() {
         query: "SELECT * FROM c"
     };
 
-    const { resources: [existingEntry] } = await container.items.query(querySpec).fetchAll();
+    const { resources } = await container.items.query(querySpec).fetchAll();
 
-    return existingEntry;
+    return resources;
 }
 
 // Function to generate CDN purge path from blob URL

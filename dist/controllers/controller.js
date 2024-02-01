@@ -31,10 +31,24 @@ apartmentRouter.get("/", (req, res) => __awaiter(void 0, void 0, void 0, functio
 apartmentRouter.get("/models", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const document = yield findAllEntries();
-        if (!document) {
-            return res.status(404).send("Entry not found in the database");
+        if (!Array.isArray(document) || document.length === 0) {
+            return res.status(404).send("No entries found in the database");
         }
-        return res.status(200).send(document);
+        const filteredResponse = document.map((item) => {
+            return {
+                id: item.id,
+                meshName: item.meshName,
+                type: item.type,
+                isModelSwap: item.isModelSwap,
+                isTextureSwap: item.isTextureSwap,
+                isColorSwap: item.isColorSwap,
+                materialName: item.materialName,
+                modelVariants: item.modelVariants,
+                textureVariants: item.textureVariants,
+                colorVariants: item.colorVariants,
+            };
+        });
+        return res.status(200).send(filteredResponse);
     }
     catch (err) {
         console.log(err);
@@ -47,7 +61,19 @@ apartmentRouter.get("/models/:id", (req, res) => __awaiter(void 0, void 0, void 
         if (!document) {
             return res.status(404).send("Entry not found in the database");
         }
-        return res.status(200).send(document);
+        const filteredResponse = {
+            id: document.id,
+            meshName: document.meshName,
+            type: document.type,
+            isModelSwap: document.isModelSwap,
+            isTextureSwap: document.isTextureSwap,
+            isColorSwap: document.isColorSwap,
+            materialName: document.materialName,
+            modelVariants: document.modelVariants,
+            textureVariants: document.textureVariants,
+            colorVariants: document.colorVariants,
+        };
+        return res.status(200).send(filteredResponse);
     }
     catch (err) {
         console.log(err);
@@ -58,8 +84,21 @@ apartmentRouter.post("/models", (req, res) => __awaiter(void 0, void 0, void 0, 
     try {
         const validatedEntry = modelsSchema_1.Element.parse(req.body);
         const generatedId = (0, uuid_1.v4)();
-        const document = yield createEntry(Object.assign({ id: generatedId }, req.body));
-        return res.status(200).send(document);
+        const document = Object.assign({ id: generatedId }, req.body);
+        yield createEntry(document);
+        const filteredResponse = {
+            id: document.id,
+            meshName: document.meshName,
+            type: document.type,
+            isModelSwap: document.isModelSwap,
+            isTextureSwap: document.isTextureSwap,
+            isColorSwap: document.isColorSwap,
+            materialName: document.materialName,
+            modelVariants: document.modelVariants,
+            textureVariants: document.textureVariants,
+            colorVariants: document.colorVariants,
+        };
+        return res.status(200).send(filteredResponse);
     }
     catch (err) {
         console.log(err);
@@ -69,8 +108,21 @@ apartmentRouter.post("/models", (req, res) => __awaiter(void 0, void 0, void 0, 
 apartmentRouter.put("/models/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const validatedEntry = modelsSchema_1.Element.parse(req.body);
-        const document = yield updateEntry(req.params.id, req.body);
-        return res.status(200).send(document);
+        const document = req.body;
+        yield updateEntry(req.params.id, req.body);
+        const filteredResponse = {
+            id: document.id,
+            meshName: document.meshName,
+            type: document.type,
+            isModelSwap: document.isModelSwap,
+            isTextureSwap: document.isTextureSwap,
+            isColorSwap: document.isColorSwap,
+            materialName: document.materialName,
+            modelVariants: document.modelVariants,
+            textureVariants: document.textureVariants,
+            colorVariants: document.colorVariants,
+        };
+        return res.status(200).send(filteredResponse);
     }
     catch (err) {
         console.log(err);
@@ -146,8 +198,8 @@ function findAllEntries() {
         const querySpec = {
             query: "SELECT * FROM c"
         };
-        const { resources: [existingEntry] } = yield cosmosDB_1.default.items.query(querySpec).fetchAll();
-        return existingEntry;
+        const { resources } = yield cosmosDB_1.default.items.query(querySpec).fetchAll();
+        return resources;
     });
 }
 // Function to generate CDN purge path from blob URL

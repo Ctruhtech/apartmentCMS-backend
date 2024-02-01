@@ -80,6 +80,7 @@ apartmentRouter.get("/models/:id", (req, res) => __awaiter(void 0, void 0, void 
         return res.status(500).send("Internal server error");
     }
 }));
+// post request to upload a model
 apartmentRouter.post("/models", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const validatedEntry = modelsSchema_1.Element.parse(req.body);
@@ -105,6 +106,28 @@ apartmentRouter.post("/models", (req, res) => __awaiter(void 0, void 0, void 0, 
         return res.status(500).send("Internal server error");
     }
 }));
+// Add a ModelVariant to an Element
+apartmentRouter.post("/models/:id/model", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const entryId = req.params.id;
+        const newModel = req.body;
+        // Check if an entry with the same id already exists
+        const existingEntry = yield findEntryById(entryId);
+        if (!existingEntry) {
+            return res.status(404).send("Entry not found in the database");
+        }
+        // Add the new ModelVariant to the Element
+        existingEntry.modelVariants.push(newModel);
+        // Update the Element in the database
+        const updatedEntry = yield updateEntry(entryId, existingEntry);
+        return res.status(200).json(updatedEntry);
+    }
+    catch (err) {
+        console.error(err);
+        return res.status(500).send("Internal server error");
+    }
+}));
+// update whole structure 
 apartmentRouter.put("/models/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const validatedEntry = modelsSchema_1.Element.parse(req.body);

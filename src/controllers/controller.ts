@@ -178,7 +178,33 @@ apartmentRouter.post("/models/:id/texture", async (req: Request, res: Response) 
       console.error(err);
       return res.status(500).send("Internal server error");
     }
-});  
+});
+
+// specific addition of color variant
+apartmentRouter.post("/models/:id/color", async (req: Request, res: Response) => {
+    try {
+      const entryId = req.params.id;
+      const newColor = req.body;
+  
+      // Check if an entry with the same id already exists
+      const existingEntry = await findEntryById(entryId);
+  
+      if (!existingEntry) {
+        return res.status(404).send("Entry not found in the database");
+      }
+  
+      // Add the new ColorVariant to the Element
+      existingEntry.colorVariants.push(newColor);
+  
+      // Update the Element in the database
+      const updatedEntry = await updateEntry(entryId, existingEntry);
+  
+      return res.status(200).json(updatedEntry);
+    } catch (err) {
+      console.error(err);
+      return res.status(500).send("Internal server error");
+    }
+});
 
   
 // update whole structure 

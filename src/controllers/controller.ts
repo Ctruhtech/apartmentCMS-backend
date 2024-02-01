@@ -156,6 +156,40 @@ apartmentRouter.put("/models/:id", async(req: Request, res: Response) => {
     }
 });
 
+// Update a specific ModelVariant within an Element
+apartmentRouter.put("/models/:id/model/:modelId", async (req: Request, res: Response) => {
+    try {
+      const entryId = req.params.id;
+      const modelId = req.params.modelId;
+      const updatedModel = req.body;
+  
+      // Check if an entry with the same id already exists
+      const existingEntry = await findEntryById(entryId);
+  
+      if (!existingEntry) {
+        return res.status(404).send("Entry not found in the database");
+      }
+  
+      // Find the index of the modelVariant to update
+      const modelIndex = existingEntry.modelVariants.findIndex((model) => model.id === modelId);
+  
+      if (modelIndex === -1) {
+        return res.status(404).send("ModelVariant not found in the Element");
+      }
+  
+      // Update the specific ModelVariant in the Element
+      existingEntry.modelVariants[modelIndex] = updatedModel;
+  
+      // Update the Element in the database
+      const updatedEntry = await updateEntry(entryId, existingEntry);
+  
+      return res.status(200).json(updatedEntry);
+    } catch (err) {
+      console.error(err);
+      return res.status(500).send("Internal server error");
+    }
+  });
+
 apartmentRouter.delete("/models/:id", async(req: Request, res: Response) => {
     try {
         const document = await deleteEntry(req.params.id);

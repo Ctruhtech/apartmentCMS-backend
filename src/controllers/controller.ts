@@ -107,6 +107,37 @@ apartmentRouter.get("/models/:id", async(req: Request, res: Response) => {
     }
 });
 
+apartmentRouter.get("/models/filter/:meshName", async(req: Request, res: Response) => {
+    try {
+        const filteredEntries = await filterEntries(req.params.meshName);
+
+        if (!Array.isArray(filteredEntries)) {
+            return res.status(404).send("No entries found in the database");
+        }
+
+        const filteredResponse = filteredEntries.map((item) => {
+            return {
+              id: item.id,
+              meshName: item.meshName,
+              type: item.type,
+              isModelSwap: item.isModelSwap,
+              isTextureSwap: item.isTextureSwap,
+              isColorSwap: item.isColorSwap,
+              materialName: item.materialName,
+              modelVariants: item.modelVariants,
+              textureVariants: item.textureVariants,
+              colorVariants: item.colorVariants
+            };
+          });
+
+        return res.status(200).send(filteredResponse);
+    }
+    catch(err) {
+        console.log(err);
+        return res.status(500).send("Internal server error");
+    }
+});
+
 // post request to upload a model
 apartmentRouter.post("/models", async(req: Request, res: Response) => {
     try {
@@ -323,7 +354,7 @@ apartmentRouter.put("/models/:id/model/:modelId", async (req: Request, res: Resp
       console.error(err);
       return res.status(500).send("Internal server error");
     }
-  });
+});
 
 // Update a specific TextureVariant within an Element
 apartmentRouter.put("/models/:id/texture/:textureId", async (req: Request, res: Response) => {
@@ -507,6 +538,21 @@ apartmentRouter.delete("/models/:id/color/:colorId", async (req: Request, res: R
 
 
 
+
+// Function to filter the entries based on the meshName
+async function filterEntries(meshName: string) {
+    const querySpec = {
+        query: "SELECT * FROM c"
+    }
+
+    const { resources } = await container.items.query(querySpec).fetchAll();
+
+    meshName = meshName.toLowerCase();
+
+    const filteredEntries = resources.filter((entry) => entry.meshName.includes(meshName));
+
+    return filteredEntries;
+}
 
 // Function to delete an existing entry from Cosmos DB
 async function deleteEntry(id: string) {

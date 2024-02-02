@@ -89,6 +89,33 @@ apartmentRouter.get("/models/:id", (req, res) => __awaiter(void 0, void 0, void 
         return res.status(500).send("Internal server error");
     }
 }));
+apartmentRouter.get("/models/filter/:meshName", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const filteredEntries = yield filterEntries(req.params.meshName);
+        if (!Array.isArray(filteredEntries)) {
+            return res.status(404).send("No entries found in the database");
+        }
+        const filteredResponse = filteredEntries.map((item) => {
+            return {
+                id: item.id,
+                meshName: item.meshName,
+                type: item.type,
+                isModelSwap: item.isModelSwap,
+                isTextureSwap: item.isTextureSwap,
+                isColorSwap: item.isColorSwap,
+                materialName: item.materialName,
+                modelVariants: item.modelVariants,
+                textureVariants: item.textureVariants,
+                colorVariants: item.colorVariants
+            };
+        });
+        return res.status(200).send(filteredResponse);
+    }
+    catch (err) {
+        console.log(err);
+        return res.status(500).send("Internal server error");
+    }
+}));
 // post request to upload a model
 apartmentRouter.post("/models", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -404,6 +431,18 @@ apartmentRouter.delete("/models/:id/color/:colorId", (req, res) => __awaiter(voi
         return res.status(500).send("Internal server error");
     }
 }));
+// Function to filter the entries based on the meshName
+function filterEntries(meshName) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const querySpec = {
+            query: "SELECT * FROM c"
+        };
+        const { resources } = yield cosmosDB_1.default.items.query(querySpec).fetchAll();
+        meshName = meshName.toLowerCase();
+        const filteredEntries = resources.filter((entry) => entry.meshName.includes(meshName));
+        return filteredEntries;
+    });
+}
 // Function to delete an existing entry from Cosmos DB
 function deleteEntry(id) {
     return __awaiter(this, void 0, void 0, function* () {

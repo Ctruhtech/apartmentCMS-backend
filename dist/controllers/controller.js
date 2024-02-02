@@ -59,7 +59,7 @@ apartmentRouter.get("/models", (req, res) => __awaiter(void 0, void 0, void 0, f
                 materialName: item.materialName,
                 modelVariants: item.modelVariants,
                 textureVariants: item.textureVariants,
-                colorVariants: item.colorVariants,
+                colorVariants: item.colorVariants
             };
         });
         return res.status(200).send(filteredResponse);
@@ -84,7 +84,7 @@ apartmentRouter.get("/models/:id", (req, res) => __awaiter(void 0, void 0, void 
             materialName: document.materialName,
             modelVariants: document.modelVariants,
             textureVariants: document.textureVariants,
-            colorVariants: document.colorVariants,
+            colorVariants: document.colorVariants
         };
         return res.status(200).send(filteredResponse);
     }
@@ -135,7 +135,7 @@ apartmentRouter.post("/models", (req, res) => __awaiter(void 0, void 0, void 0, 
             materialName: document.materialName,
             modelVariants: document.modelVariants,
             textureVariants: document.textureVariants,
-            colorVariants: document.colorVariants,
+            colorVariants: document.colorVariants
         };
         return res.status(200).send(filteredResponse);
     }
@@ -162,7 +162,7 @@ apartmentRouter.post("/models/:id/model", (req, res) => __awaiter(void 0, void 0
             id: validatedModel.data.id,
             name: validatedModel.data.name,
             imageUrl: validatedModel.data.imageUrl,
-            modelUrl: validatedModel.data.modelUrl,
+            modelUrl: validatedModel.data.modelUrl
         };
         // Add the new ModelVariant to the Element
         existingEntry.modelVariants.push(newModelVariant);
@@ -193,7 +193,7 @@ apartmentRouter.post("/models/:id/texture", (req, res) => __awaiter(void 0, void
             id: validatedTexture.data.id,
             name: validatedTexture.data.name,
             imageUrl: validatedTexture.data.imageUrl,
-            textureUrl: validatedTexture.data.textureUrl,
+            textureUrl: validatedTexture.data.textureUrl
         };
         // Add the new TextureVariant to the Element
         existingEntry.textureVariants.push(newTextureVariant);
@@ -223,7 +223,7 @@ apartmentRouter.post("/models/:id/color", (req, res) => __awaiter(void 0, void 0
         const newColorVariant = {
             id: validatedColor.data.id,
             name: validatedColor.data.name,
-            hexCode: validatedColor.data.hexCode,
+            hexCode: validatedColor.data.hexCode
         };
         // Add the new ColorVariant to the Element
         existingEntry.colorVariants.push(newColorVariant);
@@ -251,7 +251,7 @@ apartmentRouter.put("/models/:id", (req, res) => __awaiter(void 0, void 0, void 
             materialName: document.materialName,
             modelVariants: document.modelVariants,
             textureVariants: document.textureVariants,
-            colorVariants: document.colorVariants,
+            colorVariants: document.colorVariants
         };
         return res.status(200).send(filteredResponse);
     }
@@ -289,7 +289,7 @@ apartmentRouter.put("/models/:id/model/:modelId", (req, res) => __awaiter(void 0
             materialName: existingEntry.materialName,
             modelVariants: existingEntry.modelVariants,
             textureVariants: existingEntry.textureVariants,
-            colorVariants: existingEntry.colorVariants,
+            colorVariants: existingEntry.colorVariants
         };
         return res.status(200).json(filteredResponse);
     }
@@ -327,7 +327,7 @@ apartmentRouter.put("/models/:id/texture/:textureId", (req, res) => __awaiter(vo
             materialName: existingEntry.materialName,
             modelVariants: existingEntry.modelVariants,
             textureVariants: existingEntry.textureVariants,
-            colorVariants: existingEntry.colorVariants,
+            colorVariants: existingEntry.colorVariants
         };
         return res.status(200).json(filteredResponse);
     }
@@ -365,7 +365,7 @@ apartmentRouter.put("/models/:id/color/:colorId", (req, res) => __awaiter(void 0
             materialName: existingEntry.materialName,
             modelVariants: existingEntry.modelVariants,
             textureVariants: existingEntry.textureVariants,
-            colorVariants: existingEntry.colorVariants,
+            colorVariants: existingEntry.colorVariants
         };
         return res.status(200).json(filteredResponse);
     }

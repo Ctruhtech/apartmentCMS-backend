@@ -71,7 +71,7 @@ apartmentRouter.get("/models", async(req: Request, res: Response) => {
               materialName: item.materialName,
               modelVariants: item.modelVariants,
               textureVariants: item.textureVariants,
-              colorVariants: item.colorVariants,
+              colorVariants: item.colorVariants
             };
           });
 
@@ -100,7 +100,7 @@ apartmentRouter.get("/models/:id", async(req: Request, res: Response) => {
             materialName: document.materialName,
             modelVariants: document.modelVariants,
             textureVariants: document.textureVariants,
-            colorVariants: document.colorVariants,
+            colorVariants: document.colorVariants
         };
 
         return res.status(200).send(filteredResponse);
@@ -163,7 +163,7 @@ apartmentRouter.post("/models", async(req: Request, res: Response) => {
             materialName: document.materialName,
             modelVariants: document.modelVariants,
             textureVariants: document.textureVariants,
-            colorVariants: document.colorVariants,
+            colorVariants: document.colorVariants
           };
 
         return res.status(200).send(filteredResponse);
@@ -197,7 +197,7 @@ apartmentRouter.post("/models/:id/model", async (req: Request, res: Response) =>
         id: validatedModel.data.id,
         name: validatedModel.data.name,
         imageUrl: validatedModel.data.imageUrl,
-        modelUrl: validatedModel.data.modelUrl,
+        modelUrl: validatedModel.data.modelUrl
       };
   
       // Add the new ModelVariant to the Element
@@ -236,7 +236,7 @@ apartmentRouter.post("/models/:id/texture", async (req: Request, res: Response) 
         id: validatedTexture.data.id,
         name: validatedTexture.data.name,
         imageUrl: validatedTexture.data.imageUrl,
-        textureUrl: validatedTexture.data.textureUrl,
+        textureUrl: validatedTexture.data.textureUrl
       };
   
       // Add the new TextureVariant to the Element
@@ -274,7 +274,7 @@ apartmentRouter.post("/models/:id/color", async (req: Request, res: Response) =>
       const newColorVariant = {
         id: validatedColor.data.id,
         name: validatedColor.data.name,
-        hexCode: validatedColor.data.hexCode,
+        hexCode: validatedColor.data.hexCode
       };
   
       // Add the new ColorVariant to the Element
@@ -309,7 +309,7 @@ apartmentRouter.put("/models/:id", async(req: Request, res: Response) => {
             materialName: document.materialName,
             modelVariants: document.modelVariants,
             textureVariants: document.textureVariants,
-            colorVariants: document.colorVariants,
+            colorVariants: document.colorVariants
           };
 
         return res.status(200).send(filteredResponse);
@@ -356,7 +356,7 @@ apartmentRouter.put("/models/:id/model/:modelId", async (req: Request, res: Resp
         materialName: existingEntry.materialName,
         modelVariants: existingEntry.modelVariants,
         textureVariants: existingEntry.textureVariants,
-        colorVariants: existingEntry.colorVariants,
+        colorVariants: existingEntry.colorVariants
       };
   
       return res.status(200).json(filteredResponse);
@@ -402,7 +402,7 @@ apartmentRouter.put("/models/:id/texture/:textureId", async (req: Request, res: 
         materialName: existingEntry.materialName,
         modelVariants: existingEntry.modelVariants,
         textureVariants: existingEntry.textureVariants,
-        colorVariants: existingEntry.colorVariants,
+        colorVariants: existingEntry.colorVariants
       };
   
       return res.status(200).json(filteredResponse);
@@ -448,7 +448,7 @@ apartmentRouter.put("/models/:id/color/:colorId", async (req: Request, res: Resp
         materialName: existingEntry.materialName,
         modelVariants: existingEntry.modelVariants,
         textureVariants: existingEntry.textureVariants,
-        colorVariants: existingEntry.colorVariants,
+        colorVariants: existingEntry.colorVariants
       };
   
       return res.status(200).json(filteredResponse);

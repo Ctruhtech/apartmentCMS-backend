@@ -282,7 +282,19 @@ apartmentRouter.put("/models/:id/model/:modelId", (req, res) => __awaiter(void 0
         existingEntry.modelVariants[modelIndex] = updatedModel;
         // Update the Element in the database
         const updatedEntry = yield updateEntry(entryId, existingEntry);
-        return res.status(200).json(updatedEntry);
+        const filteredResponse = {
+            id: existingEntry.id,
+            meshName: existingEntry.meshName,
+            type: existingEntry.type,
+            isModelSwap: existingEntry.isModelSwap,
+            isTextureSwap: existingEntry.isTextureSwap,
+            isColorSwap: existingEntry.isColorSwap,
+            materialName: existingEntry.materialName,
+            modelVariants: existingEntry.modelVariants,
+            textureVariants: existingEntry.textureVariants,
+            colorVariants: existingEntry.colorVariants,
+        };
+        return res.status(200).json(filteredResponse);
     }
     catch (err) {
         console.error(err);
@@ -309,7 +321,19 @@ apartmentRouter.put("/models/:id/texture/:textureId", (req, res) => __awaiter(vo
         existingEntry.textureVariants[textureIndex] = updatedTexture;
         // Update the Element in the database
         const updatedEntry = yield updateEntry(entryId, existingEntry);
-        return res.status(200).json(updatedEntry);
+        const filteredResponse = {
+            id: existingEntry.id,
+            meshName: existingEntry.meshName,
+            type: existingEntry.type,
+            isModelSwap: existingEntry.isModelSwap,
+            isTextureSwap: existingEntry.isTextureSwap,
+            isColorSwap: existingEntry.isColorSwap,
+            materialName: existingEntry.materialName,
+            modelVariants: existingEntry.modelVariants,
+            textureVariants: existingEntry.textureVariants,
+            colorVariants: existingEntry.colorVariants,
+        };
+        return res.status(200).json(filteredResponse);
     }
     catch (err) {
         console.error(err);
@@ -336,7 +360,19 @@ apartmentRouter.put("/models/:id/color/:colorId", (req, res) => __awaiter(void 0
         existingEntry.colorVariants[colorIndex] = updatedColor;
         // Update the Element in the database
         const updatedEntry = yield updateEntry(entryId, existingEntry);
-        return res.status(200).json(updatedEntry);
+        const filteredResponse = {
+            id: existingEntry.id,
+            meshName: existingEntry.meshName,
+            type: existingEntry.type,
+            isModelSwap: existingEntry.isModelSwap,
+            isTextureSwap: existingEntry.isTextureSwap,
+            isColorSwap: existingEntry.isColorSwap,
+            materialName: existingEntry.materialName,
+            modelVariants: existingEntry.modelVariants,
+            textureVariants: existingEntry.textureVariants,
+            colorVariants: existingEntry.colorVariants,
+        };
+        return res.status(200).json(filteredResponse);
     }
     catch (err) {
         console.error(err);

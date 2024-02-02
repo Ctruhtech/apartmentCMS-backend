@@ -348,8 +348,21 @@ apartmentRouter.put("/models/:id/model/:modelId", async (req: Request, res: Resp
   
       // Update the Element in the database
       const updatedEntry = await updateEntry(entryId, existingEntry);
+
+      const filteredResponse = {
+        id: existingEntry.id,
+        meshName: existingEntry.meshName,
+        type: existingEntry.type,
+        isModelSwap: existingEntry.isModelSwap,
+        isTextureSwap: existingEntry.isTextureSwap,
+        isColorSwap: existingEntry.isColorSwap,
+        materialName: existingEntry.materialName,
+        modelVariants: existingEntry.modelVariants,
+        textureVariants: existingEntry.textureVariants,
+        colorVariants: existingEntry.colorVariants,
+      };
   
-      return res.status(200).json(updatedEntry);
+      return res.status(200).json(filteredResponse);
     } catch (err) {
       console.error(err);
       return res.status(500).send("Internal server error");
@@ -382,8 +395,21 @@ apartmentRouter.put("/models/:id/texture/:textureId", async (req: Request, res: 
   
       // Update the Element in the database
       const updatedEntry = await updateEntry(entryId, existingEntry);
+
+      const filteredResponse = {
+        id: existingEntry.id,
+        meshName: existingEntry.meshName,
+        type: existingEntry.type,
+        isModelSwap: existingEntry.isModelSwap,
+        isTextureSwap: existingEntry.isTextureSwap,
+        isColorSwap: existingEntry.isColorSwap,
+        materialName: existingEntry.materialName,
+        modelVariants: existingEntry.modelVariants,
+        textureVariants: existingEntry.textureVariants,
+        colorVariants: existingEntry.colorVariants,
+      };
   
-      return res.status(200).json(updatedEntry);
+      return res.status(200).json(filteredResponse);
     } catch (err) {
       console.error(err);
       return res.status(500).send("Internal server error");
@@ -416,8 +442,21 @@ apartmentRouter.put("/models/:id/color/:colorId", async (req: Request, res: Resp
   
       // Update the Element in the database
       const updatedEntry = await updateEntry(entryId, existingEntry);
+
+      const filteredResponse = {
+        id: existingEntry.id,
+        meshName: existingEntry.meshName,
+        type: existingEntry.type,
+        isModelSwap: existingEntry.isModelSwap,
+        isTextureSwap: existingEntry.isTextureSwap,
+        isColorSwap: existingEntry.isColorSwap,
+        materialName: existingEntry.materialName,
+        modelVariants: existingEntry.modelVariants,
+        textureVariants: existingEntry.textureVariants,
+        colorVariants: existingEntry.colorVariants,
+      };
   
-      return res.status(200).json(updatedEntry);
+      return res.status(200).json(filteredResponse);
     } catch (err) {
       console.error(err);
       return res.status(500).send("Internal server error");

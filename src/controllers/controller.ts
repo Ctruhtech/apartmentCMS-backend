@@ -35,16 +35,21 @@ apartmentRouter.get("/", async(req: Request, res: Response) => {
 });
 
 apartmentRouter.post('/login', (req, res) => {
-    const { username, password } = req.body;
+    try {
+        const { username, password } = req.body;
 
-    const hardcodedPassword = process.env.CMS_PASSWORD;
-    const hardcodedUsername = process.env.CMS_USERNAME;
+        const hardcodedPassword = process.env.CMS_PASSWORD;
+        const hardcodedUsername = process.env.CMS_USERNAME;
   
-    if (username === hardcodedUsername && password === hardcodedPassword) {
-      return res.status(200).send('Authentication successful');
+        if (username === hardcodedUsername && password === hardcodedPassword) {
+            return res.status(200).send('Authentication successful');
+        }
+  
+        return res.status(401).send('Authentication failed');
     }
-  
-    return res.status(401).send('Authentication failed');
+    catch(err) {
+        return res.status(500).send("Internal server error");
+    }
 });
 
 apartmentRouter.get("/models", async(req: Request, res: Response) => {

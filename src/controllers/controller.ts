@@ -73,7 +73,6 @@ apartmentRouter.get("/models", async(req: Request, res: Response) => {
         return res.status(200).send(filteredResponse);
     }
     catch(err) {
-        console.log(err);
         return res.status(500).send("Internal server error");
     }
 });
@@ -102,7 +101,6 @@ apartmentRouter.get("/models/:id", async(req: Request, res: Response) => {
         return res.status(200).send(filteredResponse);
     }
     catch(err) {
-        console.log(err);
         return res.status(500).send("Internal server error");
     }
 });
@@ -133,7 +131,6 @@ apartmentRouter.get("/models/filter/:meshName", async(req: Request, res: Respons
         return res.status(200).send(filteredResponse);
     }
     catch(err) {
-        console.log(err);
         return res.status(500).send("Internal server error");
     }
 });
@@ -167,7 +164,6 @@ apartmentRouter.post("/models", async(req: Request, res: Response) => {
         return res.status(200).send(filteredResponse);
     }
     catch(err) {
-        console.log(err);
         return res.status(500).send("Internal server error");
     }
 });
@@ -207,7 +203,6 @@ apartmentRouter.post("/models/:id/model", async (req: Request, res: Response) =>
   
       return res.status(200).json(updatedEntry);
     } catch (err) {
-      console.error(err);
       return res.status(500).send("Internal server error");
     }
 });
@@ -247,7 +242,6 @@ apartmentRouter.post("/models/:id/texture", async (req: Request, res: Response) 
   
       return res.status(200).json(updatedEntry);
     } catch (err) {
-      console.error(err);
       return res.status(500).send("Internal server error");
     }
 });
@@ -286,7 +280,6 @@ apartmentRouter.post("/models/:id/color", async (req: Request, res: Response) =>
   
       return res.status(200).json(updatedEntry);
     } catch (err) {
-      console.error(err);
       return res.status(500).send("Internal server error");
     }
 });
@@ -317,7 +310,6 @@ apartmentRouter.put("/models/:id", async(req: Request, res: Response) => {
         return res.status(200).send(filteredResponse);
     }
     catch(err) {
-        console.log(err);
         return res.status(500).send("Internal server error");
     }
 });
@@ -364,7 +356,6 @@ apartmentRouter.put("/models/:id/model/:modelId", async (req: Request, res: Resp
   
       return res.status(200).json(filteredResponse);
     } catch (err) {
-      console.error(err);
       return res.status(500).send("Internal server error");
     }
 });
@@ -411,7 +402,6 @@ apartmentRouter.put("/models/:id/texture/:textureId", async (req: Request, res: 
   
       return res.status(200).json(filteredResponse);
     } catch (err) {
-      console.error(err);
       return res.status(500).send("Internal server error");
     }
 });
@@ -458,7 +448,6 @@ apartmentRouter.put("/models/:id/color/:colorId", async (req: Request, res: Resp
   
       return res.status(200).json(filteredResponse);
     } catch (err) {
-      console.error(err);
       return res.status(500).send("Internal server error");
     }
 });
@@ -470,7 +459,6 @@ apartmentRouter.delete("/models/:id", async(req: Request, res: Response) => {
         return res.status(200).send(document);
     }
     catch(err) {
-        console.log(err);
         return res.status(500).send("Internal server error");
     }
 });
@@ -503,7 +491,6 @@ apartmentRouter.delete("/models/:id/model/:modelId", async (req: Request, res: R
   
       return res.status(200).json(updatedEntry);
     } catch (err) {
-      console.error(err);
       return res.status(500).send("Internal server error");
     }
 });
@@ -536,7 +523,6 @@ apartmentRouter.delete("/models/:id/texture/:textureId", async (req: Request, re
   
       return res.status(200).json(updatedEntry);
     } catch (err) {
-      console.error(err);
       return res.status(500).send("Internal server error");
     }
 });
@@ -569,7 +555,6 @@ apartmentRouter.delete("/models/:id/color/:colorId", async (req: Request, res: R
   
       return res.status(200).json(updatedEntry);
     } catch (err) {
-      console.error(err);
       return res.status(500).send("Internal server error");
     }
 });

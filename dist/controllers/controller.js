@@ -60,7 +60,6 @@ apartmentRouter.get("/models", (req, res) => __awaiter(void 0, void 0, void 0, f
         return res.status(200).send(filteredResponse);
     }
     catch (err) {
-        console.log(err);
         return res.status(500).send("Internal server error");
     }
 }));
@@ -85,7 +84,6 @@ apartmentRouter.get("/models/:id", (req, res) => __awaiter(void 0, void 0, void 
         return res.status(200).send(filteredResponse);
     }
     catch (err) {
-        console.log(err);
         return res.status(500).send("Internal server error");
     }
 }));
@@ -112,7 +110,6 @@ apartmentRouter.get("/models/filter/:meshName", (req, res) => __awaiter(void 0, 
         return res.status(200).send(filteredResponse);
     }
     catch (err) {
-        console.log(err);
         return res.status(500).send("Internal server error");
     }
 }));
@@ -138,7 +135,6 @@ apartmentRouter.post("/models", (req, res) => __awaiter(void 0, void 0, void 0, 
         return res.status(200).send(filteredResponse);
     }
     catch (err) {
-        console.log(err);
         return res.status(500).send("Internal server error");
     }
 }));
@@ -170,7 +166,6 @@ apartmentRouter.post("/models/:id/model", (req, res) => __awaiter(void 0, void 0
         return res.status(200).json(updatedEntry);
     }
     catch (err) {
-        console.error(err);
         return res.status(500).send("Internal server error");
     }
 }));
@@ -202,7 +197,6 @@ apartmentRouter.post("/models/:id/texture", (req, res) => __awaiter(void 0, void
         return res.status(200).json(updatedEntry);
     }
     catch (err) {
-        console.error(err);
         return res.status(500).send("Internal server error");
     }
 }));
@@ -233,7 +227,6 @@ apartmentRouter.post("/models/:id/color", (req, res) => __awaiter(void 0, void 0
         return res.status(200).json(updatedEntry);
     }
     catch (err) {
-        console.error(err);
         return res.status(500).send("Internal server error");
     }
 }));
@@ -258,7 +251,6 @@ apartmentRouter.put("/models/:id", (req, res) => __awaiter(void 0, void 0, void 
         return res.status(200).send(filteredResponse);
     }
     catch (err) {
-        console.log(err);
         return res.status(500).send("Internal server error");
     }
 }));
@@ -297,7 +289,6 @@ apartmentRouter.put("/models/:id/model/:modelId", (req, res) => __awaiter(void 0
         return res.status(200).json(filteredResponse);
     }
     catch (err) {
-        console.error(err);
         return res.status(500).send("Internal server error");
     }
 }));
@@ -336,7 +327,6 @@ apartmentRouter.put("/models/:id/texture/:textureId", (req, res) => __awaiter(vo
         return res.status(200).json(filteredResponse);
     }
     catch (err) {
-        console.error(err);
         return res.status(500).send("Internal server error");
     }
 }));
@@ -375,7 +365,6 @@ apartmentRouter.put("/models/:id/color/:colorId", (req, res) => __awaiter(void 0
         return res.status(200).json(filteredResponse);
     }
     catch (err) {
-        console.error(err);
         return res.status(500).send("Internal server error");
     }
 }));
@@ -385,7 +374,6 @@ apartmentRouter.delete("/models/:id", (req, res) => __awaiter(void 0, void 0, vo
         return res.status(200).send(document);
     }
     catch (err) {
-        console.log(err);
         return res.status(500).send("Internal server error");
     }
 }));
@@ -411,7 +399,6 @@ apartmentRouter.delete("/models/:id/model/:modelId", (req, res) => __awaiter(voi
         return res.status(200).json(updatedEntry);
     }
     catch (err) {
-        console.error(err);
         return res.status(500).send("Internal server error");
     }
 }));
@@ -437,7 +424,6 @@ apartmentRouter.delete("/models/:id/texture/:textureId", (req, res) => __awaiter
         return res.status(200).json(updatedEntry);
     }
     catch (err) {
-        console.error(err);
         return res.status(500).send("Internal server error");
     }
 }));
@@ -463,7 +449,6 @@ apartmentRouter.delete("/models/:id/color/:colorId", (req, res) => __awaiter(voi
         return res.status(200).json(updatedEntry);
     }
     catch (err) {
-        console.error(err);
         return res.status(500).send("Internal server error");
     }
 }));

@@ -67,6 +67,6 @@ def imagePrune(containerName){
 }
 
 def runApp(containerName, httpPort){
-	sh "docker run --rm -d -p $httpPort:$httpPort --name $containerName --env-file ./envfile $registry:v1.$BUILD_NUMBER"
+	sh "docker run --rm -d -p $httpPort:7777 --name $containerName --env-file ./envfile $registry:v1.$BUILD_NUMBER"
 	echo "Application started on port: ${httpPort} (http)"
 }

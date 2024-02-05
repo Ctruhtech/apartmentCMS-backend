@@ -30,10 +30,12 @@ const Element = z.object({
   id: z.string().optional(),
   meshName: z.string().optional(),
   type: z.string().optional(),
+  isModelFlipY: z.boolean().optional(),
   isModelSwap: z.boolean().optional(),
   isTextureSwap: z.boolean().optional(),
   isColorSwap: z.boolean().optional(),
   materialName: z.string().optional(),
+  modelLogoUrl: z.string().optional(),
   modelVariants: z.array(ModelVariant).optional(),
   textureVariants: z.array(TextureVariant).optional(),
   colorVariants: z.array(ColorVariant).optional()

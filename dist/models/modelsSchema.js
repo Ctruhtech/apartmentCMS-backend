@@ -32,10 +32,12 @@ const Element = zod_1.z.object({
     id: zod_1.z.string().optional(),
     meshName: zod_1.z.string().optional(),
     type: zod_1.z.string().optional(),
+    isModelFlipY: zod_1.z.boolean().optional(),
     isModelSwap: zod_1.z.boolean().optional(),
     isTextureSwap: zod_1.z.boolean().optional(),
     isColorSwap: zod_1.z.boolean().optional(),
     materialName: zod_1.z.string().optional(),
+    modelLogoUrl: zod_1.z.string().optional(),
     modelVariants: zod_1.z.array(ModelVariant).optional(),
     textureVariants: zod_1.z.array(TextureVariant).optional(),
     colorVariants: zod_1.z.array(ColorVariant).optional()
